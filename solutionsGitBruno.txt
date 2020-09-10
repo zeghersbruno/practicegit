@@ -1,0 +1,63 @@
+A) Basic Git Commands
+1. create a new repo ...
+- I created it via GitHub
+- I added the readme.txt + add content via GitHub
+- I added a new file1.txt + content via GitHub
+
+2. Open GitBash...
+- pwd (c:\Users\bruno\workspace\git\)
+- mkdir JavaReskilling
+- cd JavaReskilling
+- mkdir GitProjects
+- cd GitProjects
+- ls (there is nothing yet)
+- git init
+- ls (.git folder is created)
+
+3. Clone ...
+- git clone https://github.com/zeghersbruno/practicegit.git
+	Cloning into 'practicegit'...
+	remote: Enumerating objects: 6, done.
+	remote: Counting objects: 100% (6/6), done.
+	remote: Compressing objects: 100% (3/3), done.
+	remote: Total 6 (delta 0), reused 0 (delta 0), pack-reused 0
+	Unpacking objects: 100% (6/6), 1.26 KiB | 2.00 KiB/s, done.
+
+4. Create a new branch ...
+- git switch -c firstbranch
+	Switched to a new branch 'firstbranch'
+
+5. Add a file called ...
+- touch file2.txt
+- echo "here am I, file 2 !" >> file2.txt
+- git add file2.txt
+	warning: LF will be replaced by CRLF in file2.txt.
+	The file will have its original line endings in your working directory
+- git commit
+	Here GitBash opened the VIM Editor with a warning message to explain that I have to enter a commit message, otherwise the commit will abort
+	I entered a message via VIM, :w to save it, :q to quit, the commit has worked
+	[firstbranch (root-commit) f4a1258] without a commit message it does not work ...
+	1 file changed, 1 insertion(+)
+	create mode 100644 file2.txt
+- git status
+	On branch firstbranch
+	Untracked files:
+    (use "git add <file>..." to include in what will be committed)
+        practicegit/
+
+	nothing added to commit but untracked files present (use "git add" to track)
+	
+- git push --set-upstream practicegit firstbranch
+Enumerating objects: 5, done.
+Counting objects: 100% (5/5), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (5/5), 503 bytes | 251.00 KiB/s, done.
+Total 5 (delta 0), reused 0 (delta 0), pack-reused 0
+remote:
+remote: Create a pull request for 'firstbranch' on GitHub by visiting:
+remote:      https://github.com/zeghersbruno/practicegit/pull/new/firstbranch
+remote:
+To https://github.com/zeghersbruno/practicegit.git
+ * [new branch]      firstbranch -> firstbranch
+Branch 'firstbranch' set up to track remote branch 'firstbranch' from 'practicegit'.

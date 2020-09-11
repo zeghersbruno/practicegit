@@ -1,0 +1,413 @@
+A) Basic Git Commands
+1. create a new repo ...
+- I created it via GitHub
+- I added the readme.txt + add content via GitHub
+- I added a new file1.txt + content via GitHub
+
+2. Open GitBash...
+- pwd (c:\Users\bruno\workspace\git\)
+- mkdir JavaReskilling
+- cd JavaReskilling
+- mkdir GitProjects
+- cd GitProjects
+- ls (there is nothing yet)
+- git init
+- ls (.git folder is created)
+
+3. Clone ...
+- git clone https://github.com/zeghersbruno/practicegit.git
+	Cloning into 'practicegit'...
+	remote: Enumerating objects: 6, done.
+	remote: Counting objects: 100% (6/6), done.
+	remote: Compressing objects: 100% (3/3), done.
+	remote: Total 6 (delta 0), reused 0 (delta 0), pack-reused 0
+	Unpacking objects: 100% (6/6), 1.26 KiB | 2.00 KiB/s, done.
+
+4. Create a new branch ...
+- git switch -c firstbranch
+	Switched to a new branch 'firstbranch'
+
+5. Add a file called ...
+- touch file2.txt
+- echo "here am I, file 2 !" >> file2.txt
+- git add file2.txt
+	warning: LF will be replaced by CRLF in file2.txt.
+	The file will have its original line endings in your working directory
+- git commit
+	Here GitBash opened the VIM Editor with a warning message to explain that I have to enter a commit message, otherwise the commit will abort
+	I entered a message via VIM, :w to save it, :q to quit, the commit has worked
+	[firstbranch (root-commit) f4a1258] without a commit message it does not work ...
+	1 file changed, 1 insertion(+)
+	create mode 100644 file2.txt
+- git status
+	On branch firstbranch
+	Untracked files:
+    (use "git add <file>..." to include in what will be committed)
+        practicegit/
+
+	nothing added to commit but untracked files present (use "git add" to track)
+	
+- git push --set-upstream practicegit firstbranch
+Enumerating objects: 5, done.
+Counting objects: 100% (5/5), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (5/5), 503 bytes | 251.00 KiB/s, done.
+Total 5 (delta 0), reused 0 (delta 0), pack-reused 0
+remote:
+remote: Create a pull request for 'firstbranch' on GitHub by visiting:
+remote:      https://github.com/zeghersbruno/practicegit/pull/new/firstbranch
+remote:
+To https://github.com/zeghersbruno/practicegit.git
+ * [new branch]      firstbranch -> firstbranch
+Branch 'firstbranch' set up to track remote branch 'firstbranch' from 'practicegit'.
+
+6. Push ...
+ok but I lost my logs because of internet access with my laptop, so some results are lost
+
+B) Undoing things
+1. Add two more files
+bruno@DESKTOP-2QNKKLT MINGW64 ~/workspace/git/JavaReskilling/GitProjects/practicegit (master)
+$ ls
+file1.txt  file3.txt  file4.txt  readme.txt  solutionsGitBruno.txt
+
+bruno@DESKTOP-2QNKKLT MINGW64 ~/workspace/git/JavaReskilling/GitProjects/practicegit (master)
+$ git status
+On branch master
+Your branch is ahead of 'origin/master' by 1 commit.
+  (use "git push" to publish your local commits)
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   solutionsGitBruno.txt
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        file4.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+2. Commit ...
+	bruno@DESKTOP-2QNKKLT MINGW64 ~/workspace/git/JavaReskilling/GitProjects/practicegit (master)
+	$ git commit --amend -m "message changed as it's asked"
+	[master 1b89e70] message changed as it's asked
+	 Date: Thu Sep 10 14:25:42 2020 +0200
+	 1 file changed, 1 insertion(+)
+	 create mode 100644 file3.txt
+
+	bruno@DESKTOP-2QNKKLT MINGW64 ~/workspace/git/JavaReskilling/GitProjects/practicegit (master)
+	$ git revert 7f954c5
+	Removing file3.txt
+	[master 5557bb2] Revert "only file3.txt is committed"
+	 1 file changed, 1 deletion(-)
+	 delete mode 100644 file3.txt
+
+	bruno@DESKTOP-2QNKKLT MINGW64 ~/workspace/git/JavaReskilling/GitProjects/practicegit (master)
+	$ git status
+	On branch master
+	Your branch is ahead of 'origin/master' by 2 commits.
+	  (use "git push" to publish your local commits)
+
+	Changes not staged for commit:
+	  (use "git add <file>..." to update what will be committed)
+	  (use "git restore <file>..." to discard changes in working directory)
+			modified:   solutionsGitBruno.txt
+
+	Untracked files:
+	  (use "git add <file>..." to include in what will be committed)
+			file4.txt
+
+	no changes added to commit (use "git add" and/or "git commit -a")
+
+	bruno@DESKTOP-2QNKKLT MINGW64 ~/workspace/git/JavaReskilling/GitProjects/practicegit (master)
+	$ ls
+	file1.txt  file4.txt  readme.txt  solutionsGitBruno.txt
+	
+3. Try to undo your revert..
+
+	bruno@DESKTOP-2QNKKLT MINGW64 ~/workspace/git/JavaReskilling/GitProjects/practicegit (master)
+	$ git log
+	commit 5557bb26ddaa3ca6bc75cc635085e85c45e20dea (HEAD -> master)
+	Author: zeghersbruno <bruno.zeghers@gmail.com>
+	Date:   Thu Sep 10 15:08:30 2020 +0200
+
+		Revert "only file3.txt is committed"
+
+		This reverts commit 7f954c5721c2a166b67c308344a96f2976ee7e2f.
+
+	commit 1b89e702d47ebb1837e19543be20f29f1e6efd57
+	Author: zeghersbruno <bruno.zeghers@gmail.com>
+	Date:   Thu Sep 10 14:25:42 2020 +0200
+
+		message changed as it's asked
+
+	commit 8f619a2a4cece2bdbc150516eb4b3dbfb5ab5b1a (origin/master, origin/HEAD)
+	Author: zeghersbruno <bruno.zeghers@gmail.com>
+	Date:   Thu Sep 10 12:01:44 2020 +0200
+
+		forgot the solutions
+
+	commit 7653d7d0c62b9276fd4d9039ac44c9a21cf1621f
+	Author: zeghersbruno <70945956+zeghersbruno@users.noreply.github.com>
+	Date:   Thu Sep 10 10:10:15 2020 +0200
+
+		Create file1.txt
+
+	commit 7d3decf2733a3c89f011fd6ca07ae182e1f2b595
+	Author: zeghersbruno <70945956+zeghersbruno@users.noreply.github.com>
+	Date:   Thu Sep 10 10:09:24 2020 +0200
+
+		Create readme.txt
+
+	bruno@DESKTOP-2QNKKLT MINGW64 ~/workspace/git/JavaReskilling/GitProjects/practicegit (master)
+	$ git revert  5557bb
+	[master 68e9692] Revert "Revert "only file3.txt is committed""
+	 1 file changed, 1 insertion(+)
+	 create mode 100644 file3.txt
+
+	bruno@DESKTOP-2QNKKLT MINGW64 ~/workspace/git/JavaReskilling/GitProjects/practicegit (master)
+	$ ls
+	file1.txt  file3.txt  file4.txt  readme.txt  solutionsGitBruno.txt
+
+4. Stage file4.txt again ...
+
+	bruno@DESKTOP-2QNKKLT MINGW64 ~/workspace/git/JavaReskilling/GitProjects/practicegit (master)
+	$ git add file4.txt
+	warning: LF will be replaced by CRLF in file4.txt.
+	The file will have its original line endings in your working directory
+
+	bruno@DESKTOP-2QNKKLT MINGW64 ~/workspace/git/JavaReskilling/GitProjects/practicegit (master)
+	$ git commit
+	[master 66f59f5] add file4 again
+	 1 file changed, 1 insertion(+)
+	 create mode 100644 file4.txt
+
+4. bonus : because all my activities were done on master branch, I have to transfer all files from master to firstbranch
+	from the firstbranch : git rebase master
+	then git push -f
+	then some other cmds to remove the file1.txt, solutionsGit;txt, readme.txt  etc ...
+	
+5. Push to your remote
+	bruno@DESKTOP-2QNKKLT MINGW64 ~/workspace/git/JavaReskilling/GitProjects/practicegit (firstbranch)
+	$ ls
+	file2.txt  file3.txt  file4.txt
+
+	bruno@DESKTOP-2QNKKLT MINGW64 ~/workspace/git/JavaReskilling/GitProjects/practicegit (firstbranch)
+	$ git status
+	On branch firstbranch
+	Your branch is up to date with 'origin/firstbranch'.
+
+	Untracked files:
+	  (use "git add <file>..." to include in what will be committed)
+			file4.txt
+
+	nothing added to commit but untracked files present (use "git add" to track)
+
+C) Some More Git
+1. Make some changes to file2.txt ...
+
+	bruno@DESKTOP-2QNKKLT MINGW64 ~/workspace/git/JavaReskilling/GitProjects/practicegit (firstbranch)
+	$ git pull
+	remote: Enumerating objects: 5, done.
+	remote: Counting objects: 100% (5/5), done.
+	remote: Compressing objects: 100% (2/2), done.
+	remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+	Unpacking objects: 100% (3/3), 734 bytes | 4.00 KiB/s, done.
+	From https://github.com/zeghersbruno/practicegit
+	   a2ca81c..48d06c6  firstbranch -> origin/firstbranch
+	Merge made by the 'recursive' strategy.
+	 file2.txt | 1 +
+	 1 file changed, 1 insertion(+)
+
+	bruno@DESKTOP-2QNKKLT MINGW64 ~/workspace/git/JavaReskilling/GitProjects/practicegit (firstbranch)
+	$ ls
+	file1.txt  file2.txt  file3.txt
+
+	bruno@DESKTOP-2QNKKLT MINGW64 ~/workspace/git/JavaReskilling/GitProjects/practicegit (firstbranch)
+	$ echo file2.txt
+	file2.txt
+
+	bruno@DESKTOP-2QNKKLT MINGW64 ~/workspace/git/JavaReskilling/GitProjects/practicegit (firstbranch)
+	$ cat < file2.txt
+	here am I, file 2 !
+	I 've been changed !
+
+
+
+2. Create a new branch "secondbranch" ...
+	bruno@DESKTOP-2QNKKLT MINGW64 ~/workspace/git/JavaReskilling/GitProjects/practicegit (firstbranch)
+	$ git switch -c secondbranch
+	Switched to a new branch 'secondbranch'
+
+	bruno@DESKTOP-2QNKKLT MINGW64 ~/workspace/git/JavaReskilling/GitProjects/practicegit (secondbranch)
+	$ ls
+	file1.txt  file2.txt  file3.txt
+
+3. Delete firstbranch ...
+	bruno@DESKTOP-2QNKKLT MINGW64 ~/workspace/git/JavaReskilling/GitProjects/practicegit (secondbranch)
+	$ git branch -D firstbranch
+	Deleted branch firstbranch (was 7721f84).
+
+	bruno@DESKTOP-2QNKKLT MINGW64 ~/workspace/git/JavaReskilling/GitProjects/practicegit (secondbranch)
+	$ git branch -r
+	  origin/HEAD -> origin/master
+	  origin/firstbranch
+	  origin/master
+
+	bruno@DESKTOP-2QNKKLT MINGW64 ~/workspace/git/JavaReskilling/GitProjects/practicegit (secondbranch)
+	$ git branch -r -D origin/firstbranch
+	Deleted remote-tracking branch origin/firstbranch (was 48d06c6).
+
+4. Switch to master ...
+	bruno@DESKTOP-2QNKKLT MINGW64 ~/workspace/git/JavaReskilling/GitProjects/practicegit (secondbranch)
+	$ git switch master
+	Switched to branch 'master'
+	Your branch is up to date with 'origin/master'.
+
+	bruno@DESKTOP-2QNKKLT MINGW64 ~/workspace/git/JavaReskilling/GitProjects/practicegit (master)
+	$ ls
+	file1.txt  readme.txt
+
+	bruno@DESKTOP-2QNKKLT MINGW64 ~/workspace/git/JavaReskilling/GitProjects/practicegit (master)
+	$ touch file2.txt
+
+	bruno@DESKTOP-2QNKKLT MINGW64 ~/workspace/git/JavaReskilling/GitProjects/practicegit (master)
+	$ echo "here am I file2 !" >> file2.txt
+
+	bruno@DESKTOP-2QNKKLT MINGW64 ~/workspace/git/JavaReskilling/GitProjects/practicegit (master)
+	$ echo "here am I file2 ! I'm different than file2 in secondbranch" >> file2.txt
+
+	bruno@DESKTOP-2QNKKLT MINGW64 ~/workspace/git/JavaReskilling/GitProjects/practicegit (master)
+	$ cat < file2.txt
+	here am I file2 !
+	here am I file2 ! I'm different than file2 in secondbranch
+
+5. Stage and commit ...
+	bruno@DESKTOP-2QNKKLT MINGW64 ~/workspace/git/JavaReskilling/GitProjects/practicegit (master)
+	$ git add .
+	warning: LF will be replaced by CRLF in file2.txt.
+	The file will have its original line endings in your working directory
+
+	bruno@DESKTOP-2QNKKLT MINGW64 ~/workspace/git/JavaReskilling/GitProjects/practicegit (master)
+	$ git commit -m"make some stuff in file2"
+	[master d693c6d] make some stuff in file2
+	 1 file changed, 2 insertions(+)
+	 create mode 100644 file2.txt
+
+	bruno@DESKTOP-2QNKKLT MINGW64 ~/workspace/git/JavaReskilling/GitProjects/practicegit (master)
+	$ git merge secondbranch
+	Removing readme.txt
+	CONFLICT (add/add): Merge conflict in file2.txt
+	Auto-merging file2.txt
+	Automatic merge failed; fix conflicts and then commit the result.
+
+	bruno@DESKTOP-2QNKKLT MINGW64 ~/workspace/git/JavaReskilling/GitProjects/practicegit (master|MERGING)
+	$ cat < file2.txt
+	<<<<<<< HEAD
+	here am I file2 !
+	here am I file2 ! I'm different than file2 in secondbranch
+	=======
+	here am I, file 2 !
+	I 've been changed !
+	>>>>>>> secondbranch
+
+	bruno@DESKTOP-2QNKKLT MINGW64 ~/workspace/git/JavaReskilling/GitProjects/practicegit (master|MERGING)
+	$ vim file2.txt
+
+	bruno@DESKTOP-2QNKKLT MINGW64 ~/workspace/git/JavaReskilling/GitProjects/practicegit (master|MERGING)
+	$ git add .
+
+	bruno@DESKTOP-2QNKKLT MINGW64 ~/workspace/git/JavaReskilling/GitProjects/practicegit (master|MERGING)
+	$ git commit -m "file2 adapted"
+	[master e66e3a5] file2 adapted
+
+	bruno@DESKTOP-2QNKKLT MINGW64 ~/workspace/git/JavaReskilling/GitProjects/practicegit (master)
+	$ git push
+	Enumerating objects: 15, done.
+	Counting objects: 100% (15/15), done.
+	Delta compression using up to 4 threads
+	Compressing objects: 100% (7/7), done.
+	Writing objects: 100% (8/8), 977 bytes | 244.00 KiB/s, done.
+	Total 8 (delta 0), reused 0 (delta 0), pack-reused 0
+	To https://github.com/zeghersbruno/practicegit.git
+	   d693c6d..e66e3a5  master -> master
+
+6. Checkout the following ...
+	bruno@DESKTOP-2QNKKLT MINGW64 ~/workspace/git/JavaReskilling/GitProjects/practicegit (secondbranch)
+	$ touch file5.txt secret.txt
+
+	bruno@DESKTOP-2QNKKLT MINGW64 ~/workspace/git/JavaReskilling/GitProjects/practicegit (secondbranch)
+	$ echo "file5555555" >> file5.txt
+
+	bruno@DESKTOP-2QNKKLT MINGW64 ~/workspace/git/JavaReskilling/GitProjects/practicegit (secondbranch)
+	$ echo "this is secret !" >> secret.txt
+
+	bruno@DESKTOP-2QNKKLT MINGW64 ~/workspace/git/JavaReskilling/GitProjects/practicegit (secondbranch)
+	$ touch .gitignore
+
+	bruno@DESKTOP-2QNKKLT MINGW64 ~/workspace/git/JavaReskilling/GitProjects/practicegit (secondbranch)
+	$ vim .gitignore
+
+	bruno@DESKTOP-2QNKKLT MINGW64 ~/workspace/git/JavaReskilling/GitProjects/practicegit (secondbranch)
+	$ cat < .gitignore
+	secret.txt
+
+	bruno@DESKTOP-2QNKKLT MINGW64 ~/workspace/git/JavaReskilling/GitProjects/practicegit (secondbranch)
+	$ git add .
+	warning: LF will be replaced by CRLF in .gitignore.
+	The file will have its original line endings in your working directory
+	warning: LF will be replaced by CRLF in file5.txt.
+	The file will have its original line endings in your working directory
+
+	bruno@DESKTOP-2QNKKLT MINGW64 ~/workspace/git/JavaReskilling/GitProjects/practicegit (secondbranch)
+	$ git commit-m "adding file5 ignoring secret"
+	git: 'commit-m' is not a git command. See 'git --help'.
+
+	The most similar command is
+			commit-tree
+
+	bruno@DESKTOP-2QNKKLT MINGW64 ~/workspace/git/JavaReskilling/GitProjects/practicegit (secondbranch)
+	$ git push --set-upstream origin secondbranch
+	Total 0 (delta 0), reused 0 (delta 0), pack-reused 0
+	remote:
+	remote: Create a pull request for 'secondbranch' on GitHub by visiting:
+	remote:      https://github.com/zeghersbruno/practicegit/pull/new/secondbranch
+	remote:
+	To https://github.com/zeghersbruno/practicegit.git
+	 * [new branch]      secondbranch -> secondbranch
+	Branch 'secondbranch' set up to track remote branch 'secondbranch' from 'origin'.
+
+7. Create a subdirectory ...
+	bruno@DESKTOP-2QNKKLT MINGW64 ~/workspace/git/JavaReskilling/GitProjects/practicegit (secondbranch)
+	$ mkdir subdir
+
+	bruno@DESKTOP-2QNKKLT MINGW64 ~/workspace/git/JavaReskilling/GitProjects/practicegit (secondbranch)
+	$ cd subdir
+	+ make some touch and echo ...
+	
+	bruno@DESKTOP-2QNKKLT MINGW64 ~/workspace/git/JavaReskilling/GitProjects/practicegit/subdir (secondbranch)
+	$ ls
+	file6.txt  file7.txt
+
+	bruno@DESKTOP-2QNKKLT MINGW64 ~/workspace/git/JavaReskilling/GitProjects/practicegit (secondbranch)
+	$ git add .
+
+	bruno@DESKTOP-2QNKKLT MINGW64 ~/workspace/git/JavaReskilling/GitProjects/practicegit (secondbranch)
+	$ git commit -m "see what happens !"
+	[secondbranch f9a1371] see what happens !
+	 2 files changed, 0 insertions(+), 0 deletions(-)
+	 rename file6.txt => subdir/file6.txt (100%)
+	 rename file7.txt => subdir/file7.txt (100%)
+
+	bruno@DESKTOP-2QNKKLT MINGW64 ~/workspace/git/JavaReskilling/GitProjects/practicegit (secondbranch)
+	$ git push
+	Enumerating objects: 9, done.
+	Counting objects: 100% (9/9), done.
+	Delta compression using up to 4 threads
+	Compressing objects: 100% (5/5), done.
+	Writing objects: 100% (8/8), 709 bytes | 177.00 KiB/s, done.
+	Total 8 (delta 1), reused 0 (delta 0), pack-reused 0
+	remote: Resolving deltas: 100% (1/1), done.
+	To https://github.com/zeghersbruno/practicegit.git
+	   7721f84..f9a1371  secondbranch -> secondbranch
